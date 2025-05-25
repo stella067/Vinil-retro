@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>E-commerce Vinil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: #fffaf0;
+    }
+
+    .navbar {
+      background-color: #f5f5dc;
+      color: #4b2e2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      flex-wrap: wrap;
+    }
+
+    .logo img {
+      height: 80px;
+      cursor: pointer;
+    }
+
+    .menu {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      position: relative;
+      align-items: center;
+    }
+
+    .menu a, .dropbtn, .menu button {
+      color: #4b2e2e;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .menu a:hover, .dropbtn:hover, .menu button:hover {
+      color: #8b0000;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fffaf0;
+      top: 100%;
+      left: 0;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 10px 0;
+      min-width: 220px;
+      z-index: 1000;
+    }
+
+    .dropdown:hover > .dropdown-content {
+      display: block;
+    }
+
+    .submenu {
+      position: relative;
+    }#42445A
+
+    .submenu-content {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      background-color: #fffaf0;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 10px 0;
+      min-width: 220px;
+      z-index: 1000;
+    }
+
+    .submenu:hover > .submenu-content {
+      display: block;
+    }
+
+    .dropdown-content a,
+    .submenu-content a {
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      color: #4b2e2e;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover,
+    .submenu-content a:hover {
+      background-color: #f0e6d2;
+      color: #8b0000;
+    }
+
+    .dropdown-content img,
+    .submenu-content img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .submenu > a::after {
+      content: "▶";
+      font-size: 12px;
+      margin-left: 8px;
+      color: #4b2e2e;
+    }
+
+    .auth-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #login-modal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -20%);
+      background: #fffaf0;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      z-index: 1001;
+    }
+
+    #login-form input {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      font-family: 'Poppins', sans-serif;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4b2e2e;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #8b0000;
+    }
+
+    #user-info {
+      font-weight: bold;
+      color: #4b2e2e;
+    }
+
+    .catalogo {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 50px 20px;
+      background-color: #fff8e7;
+    }
+
+    .vinil-card {
+      width: 250px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+
+    .vinil-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .vinil-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .vinil-card h4 {
+      margin: 10px 0;
+      color: #4b2e2e;
+    }
+
+    .sobre-nos-section {
+      background-color: #f5f5dc;
+      padding: 40px 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .sobre-nos-section.active {
+      display: block;
+    }
+
+    .sobre-nos-section img {
+      height: 120px;
+      margin-bottom: 15px;
+    }
+
+    .sobre-nos-section p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #4b2e2e;
+    }
+
+    footer {
+      background-color: #f5f5dc;
+      color: #4b2e2e;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+      <img src="log.png" alt="Logo Vinil" />
+    </div>
+
+    <div class="menu">
+      <div class="dropdown">
+        <button class="dropbtn">Catálogo</button>
+        <div class="dropdown-content">
+          <div class="submenu">
+            <a href="#">Pop</a>
+            <div class="submenu-content">
+              <a href="https://open.spotify.com/album/2ANVost0y2y52ema1E9xAZ" target="_blank" rel="noopener">
+                <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" alt="Michael Jackson - Thriller" />
+                Michael Jackson - Thriller
+              </a>
+            </div>
+          </div>
+
+          <div class="submenu">
+            <a href="#">Clássico</a>
+            <div class="submenu-content">
+              <a href="https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN" target="_blank" rel="noopener">
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" alt="The Beatles - Abbey Road" />
+                The Beatles - Abbey Road
+              </a>
+            </div>
+          </div>
+
+          <div class="submenu">
+            <a href="#">MPB</a>
+            <div class="submenu-content">
+              <a href="https://open.spotify.com/album/7yrRo2o4XzDfv3mNnkPRE5" target="_blank" rel="noopener">
+                <img src="oi.png" alt="Chico Buarque - Construção" />
+                Chico Buarque - Construção
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id="sobre-btn">Sobre</button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Buscar..." />
+      <button>Buscar</button>
+    </div>
+
+    <div class="auth-controls">
+      <button id="login-btn" onclick="document.getElementById('login-modal').style.display='block'">Login</button>
+      <span id="user-info" style="display:none;"></span>
+      <button id="logout-btn" style="display:none;">Sair</button>
+    </div>
+  </div>
+
+  <div id="login-modal">
+    <form id="login-form">
+      <h3>Login</h3>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+      <button type="button" onclick="document.getElementById('login-modal').style.display='none'">Cancelar</button>
+    </form>
+  </div>
+
+  <section class="catalogo" id="catalogo">
+    <div class="vinil-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" alt="Michael Jackson - Thriller" />
+      <h4>Michael Jackson - Thriller</h4>
+    </div>
+    <div class="vinil-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" alt="The Beatles - Abbey Road" />
+      <h4>The Beatles - Abbey Road</h4>
+    </div>
+    <div class="vinil-card">
+      <img src="oi.png" alt="Chico Buarque - Construção" />
+      <h4>Chico Buarque - Construção</h4>
+    </div>
+  </section>
+
+  <section class="sobre-nos-section" id="sobre-nos">
+    <img src="log.png" alt="Logo Vinil" />
+    <p>
+      Somos uma loja apaixonada por vinis, dedicada a trazer os melhores álbuns de diversos gêneros para colecionadores e amantes da música.
+      Nossa missão é conectar você aos clássicos e novidades do mundo do vinil.
+    </p>
+  </section>
+
+  <footer>
+    <p>🎶</p>
+  </footer>
+
+  <script>
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const userInfo = document.getElementById('user-info');
+    const loginModal = document.getElementById('login-modal');
+    const loginForm = document.getElementById('login-form');
+    const sobreBtn = document.getElementById('sobre-btn');
+    const sobreNosSection = document.getElementById('sobre-nos');
+
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      userInfo.textContent = email;
+      userInfo.style.display = 'inline';
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline';
+      loginModal.style.display = 'none';
+    });
+
+    logoutBtn.addEventListener('click', function() {
+      userInfo.style.display = 'none';
+      loginBtn.style.display = 'inline';
+      logoutBtn.style.display = 'none';
+    });
+
+    sobreBtn.addEventListener('click', () => {
+      if(sobreNosSection.classList.contains('active')){
+        sobreNosSection.classList.remove('active');
+      } else {
+        sobreNosSection.classList.add('active');
+        sobreNosSection.scrollIntoView({behavior: "smooth"});
+      }
+    });
+  </script>
+
+</body>
+</html>
