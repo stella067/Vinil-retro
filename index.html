@@ -28,34 +28,86 @@
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
+      position: relative;
       align-items: center;
     }
-    .menu button {
+    .menu a, .dropbtn, .menu button {
+      color: #4b2e2e;
+      text-decoration: none;
       background: none;
       border: none;
-      color: #4b2e2e;
+      cursor: pointer;
       font-weight: 600;
       font-size: 16px;
-      cursor: pointer;
+      position: relative;
     }
-    .menu button:hover {
+    .menu a:hover, .dropbtn:hover, .menu button:hover {
       color: #8b0000;
     }
-    .search-box input {
-      padding: 8px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+    .dropdown {
+      position: relative;
     }
-    .search-box button {
-      padding: 8px 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #4b2e2e;
-      color: white;
-      cursor: pointer;
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fffaf0;
+      top: 100%;
+      left: 0;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 10px 0;
+      min-width: 220px;
+      z-index: 1000;
     }
-    .search-box button:hover {
-      background-color: #8b0000;
+    .dropdown:hover > .dropdown-content {
+      display: block;
+    }
+    .submenu {
+      position: relative;
+    }
+    .submenu-content {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      background-color: #fffaf0;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 10px 0;
+      min-width: 220px;
+      z-index: 1000;
+    }
+    .submenu:hover > .submenu-content {
+      display: block;
+    }
+    .dropdown-content a,
+    .submenu-content a {
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      color: #4b2e2e;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.3s;
+    }
+    .dropdown-content a:hover,
+    .submenu-content a:hover {
+      background-color: #f0e6d2;
+      color: #8b0000;
+    }
+    .dropdown-content img,
+    .submenu-content img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+    .submenu > a::after {
+      content: "▶";
+      font-size: 12px;
+      margin-left: 8px;
+      color: #4b2e2e;
     }
     .auth-controls {
       display: flex;
@@ -126,173 +178,211 @@
       margin-bottom: 10px;
     }
     .vinil-card h4 {
-      margin: 10px 0 5px;
+      margin: 10px 0;
       color: #4b2e2e;
     }
-    .vinil-card p {
-      margin: 5px 0 10px;
-      color: #8b0000;
-      font-style: italic;
+    .sobre-nos-section {
+      background-color: #f5f5dc;
+      padding: 40px 20px;
+      text-align: center;
+      display: none;
     }
-    .fav-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: #ccc;
-      transition: color 0.3s;
+    .sobre-nos-section.active {
+      display: block;
     }
-    .fav-btn.favorited {
-      color: red;
+    .sobre-nos-section img {
+      height: 120px;
+      margin-bottom: 15px;
+    }
+    .sobre-nos-section p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #4b2e2e;
+    }
+    footer {
+      background-color: #f5f5dc;
+      color: #4b2e2e;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .search-box input {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
 
-<div class="navbar">
-  <div class="logo">
+  <div class="navbar">
+    <div class="logo">
+      <img src="ChatGPT Image 25 de mai. de 2025 15_01_40.png" alt="Logo Vinil" />
+    </div>
+
+    <div class="menu">
+      <div class="dropdown">
+        <button class="dropbtn">Catálogo</button>
+        <div class="dropdown-content">
+          <div class="submenu">
+            <a href="#">Pop</a>
+            <div class="submenu-content">
+              <a href="https://open.spotify.com/album/2ANVost0y2y52ema1E9xAZ" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" alt="Michael Jackson - Thriller" />
+                Michael Jackson - Thriller
+              </a>
+            </div>
+          </div>
+          <div class="submenu">
+            <a href="#">Clássico</a>
+            <div class="submenu-content">
+              <a href="https://open.spotify.com/album/0ETFjACtuP2ADo6LFhL6HN" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" alt="The Beatles - Abbey Road" />
+                The Beatles - Abbey Road
+              </a>
+            </div>
+          </div>
+          <div class="submenu">
+            <a href="#">MPB</a>
+            <div class="submenu-content">
+              <a href="https://open.spotify.com/album/7yrRo2o4XzDfv3mNnkPRE5" target="_blank">
+                <img src="IMG_6730.jpeg" alt="Chico Buarque - Construção" />
+                Chico Buarque - Construção
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id="sobre-btn">Sobre</button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Buscar..." />
+      <button>Buscar</button>
+    </div>
+
+    <div class="auth-controls">
+      <button id="login-btn" onclick="document.getElementById('login-modal').style.display='block'">Login</button>
+      <span id="user-info" style="display:none;"></span>
+      <button id="logout-btn" style="display:none;">Sair</button>
+    </div>
+  </div>
+
+  <div id="login-modal">
+    <form id="login-form">
+      <h3>Login</h3>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+      <button type="button" onclick="document.getElementById('login-modal').style.display='none'">Cancelar</button>
+    </form>
+  </div>
+
+  <section class="catalogo">
+    <div class="vinil-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" alt="Michael Jackson - Thriller" />
+      <h4>Michael Jackson - Thriller</h4>
+    </div>
+    <div class="vinil-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" alt="The Beatles - Abbey Road" />
+      <h4>The Beatles - Abbey Road</h4>
+    </div>
+    <div class="vinil-card">
+      <img src="IMG_6730.jpeg" alt="Chico Buarque - Construção" />
+      <h4>Chico Buarque - Construção</h4>
+    </div>
+  </section>
+
+  <section class="sobre-nos-section" id="sobre-nos">
     <img src="ChatGPT Image 25 de mai. de 2025 15_01_40.png" alt="Logo Vinil" />
-  </div>
+    <p>
+      Somos uma loja apaixonada por vinis, dedicada a trazer os melhores álbuns de diversos gêneros para colecionadores e amantes da música.
+      Nossa missão é conectar você aos clássicos e novidades do mundo do vinil.
+    </p>
+  </section>
 
-  <div class="menu">
-    <button id="catalogo-btn">Catálogo</button>
-    <button id="favoritos-btn">❤️</button>
-    <button id="sobre-btn">Sobre</button>
-  </div>
+  <footer>
+    <p>🎶</p>
+  </footer>
 
-  <div class="search-box">
-    <input type="text" placeholder="Buscar..." id="search-input" />
-    <button id="search-btn">Buscar</button>
-  </div>
+  <script>
+    // Login e logout
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const userInfo = document.getElementById('user-info');
+    const loginModal = document.getElementById('login-modal');
+    const loginForm = document.getElementById('login-form');
+    const sobreBtn = document.getElementById('sobre-btn');
+    const sobreNosSection = document.getElementById('sobre-nos');
 
-  <div class="auth-controls">
-    <button id="login-btn" onclick="document.getElementById('login-modal').style.display='block'">Login</button>
-    <span id="user-info" style="display:none;"></span>
-    <button id="logout-btn" style="display:none;">Sair</button>
-  </div>
-</div>
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-<div id="login-modal">
-  <form id="login-form">
-    <h3>Login</h3>
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="password" id="password" placeholder="Senha" required />
-    <button type="submit">Entrar</button>
-    <button type="button" onclick="document.getElementById('login-modal').style.display='none'">Cancelar</button>
-  </form>
-</div>
-
-<section class="catalogo" id="catalogo">
-  <div class="vinil-card" data-title="Michael Jackson Thriller">
-    <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" alt="Michael Jackson - Thriller" />
-    <h4>Michael Jackson - Thriller</h4>
-    <p>♪ Billie Jean</p>
-    <button class="fav-btn">♡</button>
-  </div>
-
-  <div class="vinil-card" data-title="The Beatles Abbey Road">
-    <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" alt="The Beatles - Abbey Road" />
-    <h4>The Beatles - Abbey Road</h4>
-    <p>♪ Come Together</p>
-    <button class="fav-btn">♡</button>
-  </div>
-
-  <div class="vinil-card" data-title="Chico Buarque Construção">
-    <img src="IMG_6730.jpeg" alt="Chico Buarque - Construção" />
-    <h4>Chico Buarque - Construção</h4>
-    <p>♪ Construção</p>
-    <button class="fav-btn">♡</button>
-  </div>
-</section>
-
-<script>
-  const favButtons = document.querySelectorAll('.fav-btn');
-  const catalogoSection = document.getElementById('catalogo');
-  const catalogoBtn = document.getElementById('catalogo-btn');
-  const favoritosBtn = document.getElementById('favoritos-btn');
-  const searchInput = document.getElementById('search-input');
-  const searchBtn = document.getElementById('search-btn');
-
-  let favoritos = [];
-
-  favButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const card = this.parentElement;
-      const title = card.dataset.title;
-
-      if (!this.classList.contains('favorited')) {
-        this.classList.add('favorited');
-        this.textContent = '❤️';
-        favoritos.push(title);
+      if (email === "test@gmail.com" && password === "123456") {
+        const nome = email.split('@')[0];
+        userInfo.textContent = `Bem-vindo, ${nome}!`;
+        userInfo.style.display = 'inline';
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline';
+        loginModal.style.display = 'none';
       } else {
-        this.classList.remove('favorited');
-        this.textContent = '♡';
-        favoritos = favoritos.filter(fav => fav !== title);
+        alert('Email ou senha incorretos!');
       }
     });
-  });
 
-  favoritosBtn.addEventListener('click', () => {
-    const cards = catalogoSection.querySelectorAll('.vinil-card');
-    cards.forEach(card => {
-      if (favoritos.includes(card.dataset.title)) {
-        card.style.display = 'block';
+    logoutBtn.addEventListener('click', function() {
+      userInfo.style.display = 'none';
+      loginBtn.style.display = 'inline';
+      logoutBtn.style.display = 'none';
+    });
+
+    // Sobre nós toggle
+    sobreBtn.addEventListener('click', () => {
+      if (sobreNosSection.classList.contains('active')) {
+        sobreNosSection.classList.remove('active');
       } else {
-        card.style.display = 'none';
+        sobreNosSection.classList.add('active');
+        sobreNosSection.scrollIntoView({ behavior: "smooth" });
       }
     });
-  });
 
-  catalogoBtn.addEventListener('click', () => {
-    const cards = catalogoSection.querySelectorAll('.vinil-card');
-    cards.forEach(card => {
-      card.style.display = 'block';
-    });
-  });
+    // Busca funcionalidade
+    const searchInput = document.querySelector('.search-box input');
+    const searchButton = document.querySelector('.search-box button');
+    const vinilCards = document.querySelectorAll('.vinil-card');
 
-  searchBtn.addEventListener('click', () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const cards = catalogoSection.querySelectorAll('.vinil-card');
-    cards.forEach(card => {
-      const title = card.dataset.title.toLowerCase();
-      if (title.includes(searchTerm)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-
-  // Login simples
-  const loginForm = document.getElementById('login-form');
-  const loginBtn = document.getElementById('login-btn');
-  const logoutBtn = document.getElementById('logout-btn');
-  const userInfo = document.getElementById('user-info');
-  const loginModal = document.getElementById('login-modal');
-
-  loginForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    if (email === "test@gmail.com" && password === "123456") {
-      const nome = email.split('@')[0];
-      userInfo.textContent = `Bem-vindo, ${nome}!`;
-      userInfo.style.display = 'inline';
-      loginBtn.style.display = 'none';
-      logoutBtn.style.display = 'inline';
-      loginModal.style.display = 'none';
-    } else {
-      alert('Email ou senha incorretos!');
+    function buscarVinis() {
+      const query = searchInput.value.trim().toLowerCase();
+      vinilCards.forEach(card => {
+        const title = card.querySelector('h4').textContent.toLowerCase();
+        if (title.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
-  });
 
-  logoutBtn.addEventListener('click', function() {
-    userInfo.style.display = 'none';
-    loginBtn.style.display = 'inline';
-    logoutBtn.style.display = 'none';
-  });
-</script>
+    searchButton.addEventListener('click', buscarVinis);
+
+    // Buscar ao apertar Enter na input
+    searchInput.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
+        buscarVinis();
+      }
+    });
+  </script>
 
 </body>
 </html>
