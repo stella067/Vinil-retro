@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-commerce Vinil</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
@@ -10,6 +11,7 @@
       margin: 0;
       background-color: #fffaf0;
     }
+
     .navbar {
       background-color: #f5f5dc;
       color: #4b2e2e;
@@ -17,20 +19,30 @@
       align-items: center;
       justify-content: space-between;
       padding: 15px 30px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       flex-wrap: wrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+
     .logo img {
       height: 80px;
       cursor: pointer;
     }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: #4b2e2e;
+      cursor: pointer;
+    }
+
     .menu {
       display: flex;
       gap: 15px;
-      flex-wrap: wrap;
-      position: relative;
       align-items: center;
     }
+
     .menu a, .dropbtn, .menu button {
       color: #4b2e2e;
       text-decoration: none;
@@ -39,14 +51,16 @@
       cursor: pointer;
       font-weight: 600;
       font-size: 16px;
-      position: relative;
     }
+
     .menu a:hover, .dropbtn:hover, .menu button:hover {
       color: #8b0000;
     }
+
     .dropdown {
       position: relative;
     }
+
     .dropdown-content {
       display: none;
       position: absolute;
@@ -59,12 +73,15 @@
       min-width: 220px;
       z-index: 1000;
     }
+
     .dropdown:hover > .dropdown-content {
       display: block;
     }
+
     .submenu {
       position: relative;
     }
+
     .submenu-content {
       display: none;
       position: absolute;
@@ -77,9 +94,11 @@
       min-width: 220px;
       z-index: 1000;
     }
+
     .submenu:hover > .submenu-content {
       display: block;
     }
+
     .dropdown-content a,
     .submenu-content a {
       display: flex;
@@ -87,14 +106,14 @@
       padding: 8px 15px;
       color: #4b2e2e;
       text-decoration: none;
-      white-space: nowrap;
-      transition: background-color 0.3s;
     }
+
     .dropdown-content a:hover,
     .submenu-content a:hover {
       background-color: #f0e6d2;
       color: #8b0000;
     }
+
     .dropdown-content img,
     .submenu-content img {
       width: 50px;
@@ -103,17 +122,19 @@
       margin-right: 10px;
       border-radius: 5px;
     }
+
     .submenu > a::after {
       content: "▶";
       font-size: 12px;
       margin-left: 8px;
-      color: #4b2e2e;
     }
+
     .auth-controls {
       display: flex;
       align-items: center;
       gap: 10px;
     }
+
     #login-modal {
       display: none;
       position: fixed;
@@ -126,6 +147,7 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       z-index: 1001;
     }
+
     #login-form input {
       display: block;
       width: 100%;
@@ -134,6 +156,7 @@
       border-radius: 5px;
       border: 1px solid #ccc;
     }
+
     button {
       font-family: 'Poppins', sans-serif;
       padding: 8px 15px;
@@ -143,13 +166,16 @@
       color: white;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #8b0000;
     }
+
     #user-info {
       font-weight: bold;
       color: #4b2e2e;
     }
+
     .catalogo {
       display: flex;
       justify-content: center;
@@ -158,6 +184,7 @@
       padding: 50px 20px;
       background-color: #fff8e7;
     }
+
     .vinil-card {
       width: 250px;
       background: #ffffff;
@@ -167,9 +194,11 @@
       padding: 20px;
       transition: transform 0.3s;
     }
+
     .vinil-card:hover {
       transform: translateY(-5px);
     }
+
     .vinil-card img {
       width: 100%;
       height: 250px;
@@ -177,23 +206,28 @@
       border-radius: 8px;
       margin-bottom: 10px;
     }
+
     .vinil-card h4 {
       margin: 10px 0;
       color: #4b2e2e;
     }
+
     .sobre-nos-section {
       background-color: #f5f5dc;
       padding: 40px 20px;
       text-align: center;
       display: none;
     }
+
     .sobre-nos-section.active {
       display: block;
     }
+
     .sobre-nos-section img {
       height: 120px;
       margin-bottom: 15px;
     }
+
     .sobre-nos-section p {
       max-width: 600px;
       margin: 0 auto;
@@ -201,24 +235,77 @@
       line-height: 1.5;
       color: #4b2e2e;
     }
+
     footer {
       background-color: #f5f5dc;
       color: #4b2e2e;
       text-align: center;
       padding: 40px 20px;
       margin-top: 20px;
-      font-weight: 500;
     }
+
     .search-box {
       display: flex;
       align-items: center;
       gap: 5px;
     }
+
     .search-box input {
       padding: 6px 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
       font-size: 16px;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+      }
+
+      .menu.active {
+        display: flex;
+      }
+
+      .search-box {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .auth-controls {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+
+      .catalogo {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .vinil-card {
+        width: 90%;
+        max-width: 300px;
+      }
+
+      .dropdown-content,
+      .submenu-content {
+        position: static;
+        box-shadow: none;
+      }
+
+      .submenu > a::after {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -228,6 +315,8 @@
     <div class="logo">
       <img src="ChatGPT Image 25 de mai. de 2025 15_01_40.png" alt="Logo Vinil" />
     </div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
     <div class="menu">
       <div class="dropdown">
@@ -288,25 +377,13 @@
   </div>
 
   <section class="catalogo">
-    <div class="vinil-card">
-      <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" alt="Michael Jackson - Thriller" />
-      <h4>Michael Jackson - Thriller</h4>
-    </div>
-    <div class="vinil-card">
-      <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" alt="The Beatles - Abbey Road" />
-      <h4>The Beatles - Abbey Road</h4>
-    </div>
-    <div class="vinil-card">
-      <img src="IMG_6730.jpeg" alt="Chico Buarque - Construção" />
-      <h4>Chico Buarque - Construção</h4>
-    </div>
+    <!-- Vinis aqui -->
   </section>
 
   <section class="sobre-nos-section" id="sobre-nos">
     <img src="ChatGPT Image 25 de mai. de 2025 15_01_40.png" alt="Logo Vinil" />
     <p>
       Somos uma loja apaixonada por vinis, dedicada a trazer os melhores álbuns de diversos gêneros para colecionadores e amantes da música.
-      Nossa missão é conectar você aos clássicos e novidades do mundo do vinil.
     </p>
   </section>
 
@@ -315,27 +392,26 @@
   </footer>
 
   <script>
-    // Login e logout
+    function toggleMenu() {
+      document.querySelector('.menu').classList.toggle('active');
+    }
+
+    // Login/logout
+    const loginForm = document.getElementById('login-form');
+    const userInfo = document.getElementById('user-info');
     const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
-    const userInfo = document.getElementById('user-info');
-    const loginModal = document.getElementById('login-modal');
-    const loginForm = document.getElementById('login-form');
-    const sobreBtn = document.getElementById('sobre-btn');
-    const sobreNosSection = document.getElementById('sobre-nos');
 
-    loginForm.addEventListener('submit', function(event) {
-      event.preventDefault();
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-
       if (email === "test@gmail.com" && password === "123456") {
-        const nome = email.split('@')[0];
-        userInfo.textContent = `Bem-vindo, ${nome}!`;
+        userInfo.textContent = `Bem-vindo, ${email.split('@')[0]}!`;
         userInfo.style.display = 'inline';
         loginBtn.style.display = 'none';
         logoutBtn.style.display = 'inline';
-        loginModal.style.display = 'none';
+        document.getElementById('login-modal').style.display = 'none';
       } else {
         alert('Email ou senha incorretos!');
       }
@@ -347,42 +423,28 @@
       logoutBtn.style.display = 'none';
     });
 
-    // Sobre nós toggle
-    sobreBtn.addEventListener('click', () => {
-      if (sobreNosSection.classList.contains('active')) {
-        sobreNosSection.classList.remove('active');
-      } else {
-        sobreNosSection.classList.add('active');
-        sobreNosSection.scrollIntoView({ behavior: "smooth" });
+    // Sobre toggle
+    document.getElementById('sobre-btn').addEventListener('click', () => {
+      const section = document.getElementById('sobre-nos');
+      section.classList.toggle('active');
+      if (section.classList.contains('active')) {
+        section.scrollIntoView({ behavior: 'smooth' });
       }
     });
 
-    // Busca funcionalidade
-    const searchInput = document.querySelector('.search-box input');
-    const searchButton = document.querySelector('.search-box button');
-    const vinilCards = document.querySelectorAll('.vinil-card');
+    // Busca
+    document.querySelector('.search-box button').addEventListener('click', buscarVinis);
+    document.querySelector('.search-box input').addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') buscarVinis();
+    });
 
     function buscarVinis() {
-      const query = searchInput.value.trim().toLowerCase();
-      vinilCards.forEach(card => {
+      const query = document.querySelector('.search-box input').value.toLowerCase();
+      document.querySelectorAll('.vinil-card').forEach(card => {
         const title = card.querySelector('h4').textContent.toLowerCase();
-        if (title.includes(query)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display = title.includes(query) ? 'block' : 'none';
       });
     }
-
-    searchButton.addEventListener('click', buscarVinis);
-
-    // Buscar ao apertar Enter na input
-    searchInput.addEventListener('keyup', (event) => {
-      if (event.key === 'Enter') {
-        buscarVinis();
-      }
-    });
   </script>
-
 </body>
 </html>
