@@ -1,311 +1,332 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vinil Store - Cadastro de Produtos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --vermelho: #c0392b;
-      --bege: #fef7f1;
-      --texto: #333;
-      --cinza-claro: #ddd;
-      --cinza: #bbb;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vinil Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --vermelho: #c0392b;
+    --bege: #fef7f1;
+    --texto: #333;
+  }
 
-    body {
-      background-color: var(--bege);
-      font-family: 'Poppins', sans-serif;
-      color: var(--texto);
-      margin: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    background-color: var(--bege);
+    color: var(--texto);
+    padding-top: 90px;
+  }
+
+  /* Navbar fixa topo */
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    z-index: 1000;
+  }
+
+  .logo img {
+    height: 50px;
+  }
+
+  .menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .menu button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--vermelho);
+    transition: color 0.3s ease;
+  }
+
+  .menu button:hover {
+    color: #7a1a14;
+  }
+
+  .auth-controls button {
+    background-color: var(--vermelho);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .auth-controls button:hover {
+    background-color: #7a1a14;
+  }
+
+  #user-info {
+    margin-left: 15px;
+    font-weight: 700;
+    color: var(--vermelho);
+  }
+
+  /* Modal login */
+  #login-modal {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    z-index: 2000;
+    width: 320px;
+  }
+
+  #login-modal input {
+    width: 100%;
+    padding: 10px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  #login-modal button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--vermelho);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  #login-modal button.cancel-btn {
+    background-color: #aaa;
+    margin-top: 8px;
+  }
+
+  #login-modal button.cancel-btn:hover {
+    background-color: #888;
+  }
+
+  /* Sections */
+  section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  h2.section-title {
+    color: var(--vermelho);
+    margin-bottom: 25px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--vermelho);
+    padding-bottom: 6px;
+    font-size: 26px;
+  }
+
+  /* Catálogo geral */
+  .catalogo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+
+  .vinil-card {
+    background-color: white;
+    width: 220px;
+    border-radius: 14px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+    text-align: center;
+  }
+
+  .vinil-card:hover {
+    transform: scale(1.07);
+  }
+
+  .vinil-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .vinil-card h4 {
+    color: var(--vermelho);
+    font-weight: 700;
+    padding: 12px 8px;
+  }
+
+  /* Sobre Nós */
+  #sobre-nos {
+    background-color: white;
+    border-radius: 14px;
+    padding: 25px 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    text-align: center;
+    font-size: 18px;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #666;
+    font-size: 14px;
+  }
+
+  /* Responsivo */
+  @media(max-width: 650px){
+    .catalogo-grid {
       justify-content: center;
-      padding-bottom: 60px;
     }
-
-    .container {
-      background: white;
-      padding: 25px 30px;
-      border-radius: 14px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      max-width: 450px;
-      width: 100%;
-      box-sizing: border-box;
+    .vinil-card {
+      width: 90vw;
+      max-width: 300px;
     }
-
-    .container h1 {
-      color: var(--vermelho);
-      margin-bottom: 20px;
-      font-weight: 700;
-      font-size: 24px;
-      text-align: center;
-    }
-
-    input[type="text"], input[type="email"], input[type="password"] {
-      width: 100%;
-      padding: 12px 15px;
-      margin: 10px 0 20px 0;
-      border: 1.5px solid var(--cinza-claro);
-      border-radius: 10px;
-      font-size: 16px;
-      transition: border-color 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-      border-color: var(--vermelho);
-      outline: none;
-    }
-
-    input[type="submit"] {
-      background-color: var(--vermelho);
-      color: white;
-      font-weight: 700;
-      border: none;
-      padding: 15px;
-      width: 100%;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-      margin-top: 10px;
-      box-sizing: border-box;
-    }
-
-    input[type="submit"]:hover {
-      background-color: #7a1a14;
-    }
-
-    /* Botões com cores diferentes */
-    #buscarProduto {
-      background-color: #0598dc;
-      margin-top: 0;
-    }
-
-    #buscarProduto:hover {
-      background-color: #0276a8;
-    }
-
-    #atualizarProduto {
-      background-color: #dcb105;
-      margin-top: 0;
-    }
-
-    #atualizarProduto:hover {
-      background-color: #a88703;
-    }
-
-    #deletarProduto {
-      background-color: #dc0905;
-      margin-top: 0;
-    }
-
-    #deletarProduto:hover {
-      background-color: #9f0603;
-    }
-
-    /* Agrupando os inputs lado a lado para busca e atualização */
-    .busca-container {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .busca-container input[type="text"] {
-      flex-grow: 1;
-      margin-bottom: 0;
-    }
-
-    .busca-container input[type="submit"] {
-      width: auto;
-      padding: 12px 18px;
-      margin-bottom: 0;
-    }
-
-    /* Inputs da atualização em coluna */
-    .atualizacao-container input[type="text"] {
-      margin: 10px 0;
-    }
-
-    /* Responsivo */
-    @media (max-width: 500px) {
-      body {
-        margin: 10px;
-        flex-direction: column;
-        align-items: center;
-      }
-      .container {
-        max-width: 100%;
-      }
-      .busca-container {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .busca-container input[type="submit"] {
-        width: 100%;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <!-- Cadastro -->
-  <div class="container">
-    <h1>Cadastro de Produtos</h1>
-    <input type="text" id="codigo" placeholder="Código" required />
-    <input type="text" id="produto" placeholder="Nome do Produto" required />
-    <input type="text" id="categoria" placeholder="Categoria" required />
-    <input type="text" id="quantidade" placeholder="Quantidade" required />
-    <input type="text" id="valor" placeholder="Valor do Produto" required />
-    <input id="cadastrarProduto" type="submit" value="Cadastrar Produto" />
-  </div>
-
-  <!-- Busca e Atualização -->
-  <div class="container">
-    <h1>Busca e Atualização de Produtos</h1>
-    <div class="busca-container">
-      <input type="text" id="idProduto" placeholder="Código do Produto" required />
-      <input id="buscarProduto" type="submit" value="Buscar Produto" />
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="ChatGPT Image 25 de mai. de 2025 15_01_40.png" alt="Logo Vinil" />
     </div>
-    <div class="atualizacao-container">
-      <input type="text" id="dadoProduto" placeholder="Produto" />
-      <input type="text" id="dadoCategoria" placeholder="Categoria" />
-      <input type="text" id="dadoQuantidade" placeholder="Quantidade" />
-      <input type="text" id="dadoValor" placeholder="Valor do Produto" />
-      <input id="atualizarProduto" type="submit" value="Atualizar Produto" />
-      <input id="deletarProduto" type="submit" value="Deletar Produto" />
+    <div class="menu">
+      <button onclick="scrollToSection('pop')">Pop</button>
+      <button onclick="scrollToSection('classico')">Clássico</button>
+      <button onclick="scrollToSection('mpb')">MPB</button>
+      <button onclick="scrollToSection('sobre-nos')">Sobre Nós</button>
+      <button onclick="abrirLogin()">Login</button>
+    </div>
+    <div class="auth-controls">
+      <span id="user-info" style="display:none;"></span>
+      <button id="logout-btn" style="display:none;">Sair</button>
     </div>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getDatabase, ref, child, get, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+  <!-- Modal Login -->
+  <div id="login-modal">
+    <form id="login-form">
+      <h3>Login</h3>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+      <button type="button" class="cancel-btn" onclick="fecharLogin()">Cancelar</button>
+    </form>
+  </div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCe4iYHsApW4RpCl8-v0NgtUZP15RCcqsk",
-      authDomain: "firestore-bcfb7.firebaseapp.com",
-      databaseURL: "https://firestore-bcfb7-default-rtdb.firebaseio.com",
-      projectId: "firestore-bcfb7",
-      storageBucket: "firestore-bcfb7.appspot.com",
-      messagingSenderId: "405005781101",
-      appId: "1:405005781101:web:b7a64ef31fc86721a69764"
-    };
+  <!-- Catálogo POP -->
+  <section id="pop">
+    <h2 class="section-title">Pop</h2>
+    <div class="catalogo-grid">
+      <div class="vinil-card">
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Michael_Jackson_-_Thriller.png" alt="Thriller"/>
+        <h4>Michael Jackson - Thriller</h4>
+      </div>
+    </div>
+  </section>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase();
+  <!-- Catálogo Clássico -->
+  <section id="classico">
+    <h2 class="section-title">Clássico</h2>
+    <div class="catalogo-grid">
+      <div class="vinil-card">
+        <img src="https://upload.wikimedia.org/wikipedia/en/4/42/Beatles_-_Abbey_Road.jpg" alt="Abbey Road"/>
+        <h4>The Beatles - Abbey Road</h4>
+      </div>
+    </div>
+  </section>
 
-    const codigo = document.getElementById('codigo');
-    const produto = document.getElementById('produto');
-    const categoria = document.getElementById('categoria');
-    const quantidade = document.getElementById('quantidade');
-    const valor = document.getElementById('valor');
+  <!-- Catálogo MPB -->
+  <section id="mpb">
+    <h2 class="section-title">MPB</h2>
+    <div class="catalogo-grid">
+      <div class="vinil-card">
+        <img src="IMG_6730.jpeg" alt="Chico Buarque - Construção" />
+        <h4>Chico Buarque - Construção</h4>
+      </div>
+    </div>
+  </section>
 
-    const idProduto = document.getElementById('idProduto');
+  <!-- Sobre Nós -->
+  <section id="sobre-nos">
+    <h2 class="section-title">Sobre Nós</h2>
+    <p>
+      Somos uma loja apaixonada por vinis, dedicada a trazer os melhores álbuns de diversos gêneros para colecionadores e amantes da música.
+      Nosso compromisso é oferecer qualidade, diversidade e um atendimento que faça você se sentir em casa.
+    </p>
+  </section>
 
-    const dadoProduto = document.getElementById('dadoProduto');
-    const dadoCategoria = document.getElementById('dadoCategoria');
-    const dadoQuantidade = document.getElementById('dadoQuantidade');
-    const dadoValor = document.getElementById('dadoValor');
+  <footer>
+    <p>🎶 Vinil Store &copy; 2025</p>
+  </footer>
 
-    const cadastrarProduto = document.getElementById('cadastrarProduto');
-    const buscarProduto = document.getElementById('buscarProduto');
-    const atualizarProduto = document.getElementById('atualizarProduto');
-    const deletarProduto = document.getElementById('deletarProduto');
+  <script>
+    // Login e logout
+    const loginForm = document.getElementById('login-form');
+    const userInfo = document.getElementById('user-info');
+    const logoutBtn = document.getElementById('logout-btn');
 
-    function AddProduto() {
-      if (!codigo.value || !produto.value || !categoria.value || !quantidade.value || !valor.value) {
-        alert('Por favor, preencha todos os campos para cadastrar.');
-        return;
-      }
-      set(ref(db, 'Produto/' + codigo.value), {
-        codigo: codigo.value,
-        produto: produto.value,
-        categoria: categoria.value,
-        quantidade: quantidade.value,
-        valor: valor.value
-      }).then(() => {
-        codigo.value = '';
-        produto.value = '';
-        categoria.value = '';
-        quantidade.value = '';
-        valor.value = '';
-        alert("Produto cadastrado!");
-      }).catch((error) => {
-        console.error(error);
-        alert('Erro ao cadastrar produto.');
-      });
+    function abrirLogin() {
+      document.getElementById('login-modal').style.display = 'block';
+    }
+    function fecharLogin() {
+      document.getElementById('login-modal').style.display = 'none';
     }
 
-    function PesquisarProduto() {
-      if (!idProduto.value) {
-        alert('Por favor, informe o código do produto para buscar.');
-        return;
-      }
-      const dbRef = ref(db);
-      get(child(dbRef, 'Produto/' + idProduto.value)).then((snapshot) => {
-        if (snapshot.exists()) {
-          dadoProduto.value = snapshot.val().produto;
-          dadoCategoria.value = snapshot.val().categoria;
-          dadoQuantidade.value = snapshot.val().quantidade;
-          dadoValor.value = snapshot.val().valor;
-          alert('Produto localizado!');
-        } else {
-          alert("Produto não encontrado.");
-          dadoProduto.value = '';
-          dadoCategoria.value = '';
-          dadoQuantidade.value = '';
-          dadoValor.value = '';
-        }
-      }).catch((e) => {
-        alert('Erro na busca.');
-        console.error(e);
-      });
-    }
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('password').value;
 
-    function AtualizarProdutos() {
-      if (!idProduto.value) {
-        alert('Informe o código do produto para atualizar.');
-        return;
+      if(email === "test@gmail.com" && senha === "123456") {
+        userInfo.textContent = `Bem-vindo, ${email.split('@')[0]}!`;
+        userInfo.style.display = 'inline';
+        logoutBtn.style.display = 'inline';
+        fecharLogin();
+      } else {
+        alert("Email ou senha incorretos!");
       }
-      update(ref(db, 'Produto/' + idProduto.value), {
-        produto: dadoProduto.value,
-        categoria: dadoCategoria.value,
-        quantidade: dadoQuantidade.value,
-        valor: dadoValor.value
-      }).then(() => {
-        alert('Produto atualizado!');
-      }).catch((e) => {
-        alert('Erro ao atualizar produto.');
-        console.error(e);
-      });
-    }
+    });
 
-    function DeletarProdutos() {
-      if (!idProduto.value) {
-        alert('Informe o código do produto para deletar.');
-        return;
-      }
-      remove(ref(db, 'Produto/' + idProduto.value)).then(() => {
-        idProduto.value = '';
-        dadoProduto.value = '';
-        dadoCategoria.value = '';
-        dadoQuantidade.value = '';
-        dadoValor.value = '';
-        alert('Produto deletado!');
-      }).catch((e) => {
-        alert('Erro ao deletar produto.');
-        console.error(e);
-      });
-    }
+    logoutBtn.addEventListener('click', () => {
+      userInfo.textContent = '';
+      userInfo.style.display = 'none';
+      logoutBtn.style.display = 'none';
+    });
 
-    cadastrarProduto.addEventListener('click', AddProduto);
-    buscarProduto.addEventListener('click', PesquisarProduto);
-    atualizarProduto.addEventListener('click', AtualizarProdutos);
-    deletarProduto.addEventListener('click', DeletarProdutos);
+    // Scroll suave para seções
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
   </script>
 
 </body>
