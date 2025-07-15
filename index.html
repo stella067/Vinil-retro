@@ -204,6 +204,65 @@
       font-weight: bold;
     }
 
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 24px;
+      padding: 10px;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: rgba(26, 10, 10, 0.98);
+      z-index: 999;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu button {
+      background: none;
+      border: none;
+      color: var(--light);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 8px 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .mobile-menu button:hover {
+      color: var(--accent);
+    }
+
+    .mobile-menu .link-botao {
+      display: block;
+      color: var(--light);
+      text-decoration: none;
+      font-size: 18px;
+      padding: 8px 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .mobile-menu .link-botao:hover {
+      color: var(--accent);
+    }
+
     /* Modal login */
     #login-modal {
       display: none;
@@ -619,26 +678,43 @@
     }
 
     /* Responsivo */
+    @media (max-width: 992px) {
+      .menu {
+        display: none;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .search-container {
+        margin: 0 10px;
+        max-width: 300px;
+      }
+    }
+
     @media (max-width: 768px) {
       .navbar {
-        flex-direction: column;
         padding: 15px;
       }
-
-      .menu {
-        margin-top: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-      }
-
-      .auth-controls {
-        margin-top: 15px;
-      }
-
+      
       .search-container {
-        margin: 15px 0;
+        order: 3;
+        width: 100%;
         max-width: 100%;
+        margin: 15px 0;
+      }
+      
+      .auth-controls {
+        margin-left: auto;
+      }
+      
+      .logo img {
+        height: 40px;
+      }
+      
+      .mobile-menu {
+        top: 70px;
       }
 
       h2.section-title {
@@ -659,6 +735,31 @@
         width: 90%;
       }
     }
+    
+    @media (max-width: 480px) {
+      .navbar {
+        flex-wrap: wrap;
+      }
+      
+      .logo {
+        order: 1;
+      }
+      
+      .hamburger {
+        order: 2;
+      }
+      
+      .auth-controls {
+        order: 4;
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+      }
+      
+      .mobile-menu {
+        top: 120px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -668,18 +769,21 @@
     <div class="logo">
       <img src="ChatGPT Image 25 de mai. de 2025 15_01_40.png" alt="Logo Vinil" />
     </div>
-<div class="menu">
-  <button onclick="scrollToSection('pop')">Pop</button>
-  <button onclick="scrollToSection('classico')">Clássico</button>
-  <button onclick="scrollToSection('mpb')">MPB</button>
-  <button onclick="scrollToSection('sobre-nos')">Sobre Nós</button>
+    
+    <button class="hamburger" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="menu">
+      <button onclick="scrollToSection('pop')">Pop</button>
+      <button onclick="scrollToSection('classico')">Clássico</button>
+      <button onclick="scrollToSection('mpb')">MPB</button>
+      <button onclick="scrollToSection('sobre-nos')">Sobre Nós</button>
 
-  <a href="https://stella067.github.io/Clenresss/" target="_blank" class="link-botao">Cadastrar Cliente</a>
-  <a href="https://stella067.github.io/tabelas-vinil/" target="_blank" class="link-botao">Cadastrar Produto</a>
-</div>
-
-</div>
+      <a href="https://stella067.github.io/Clenresss/" target="_blank" class="link-botao">Cadastrar Cliente</a>
+      <a href="https://stella067.github.io/tabelas-vinil/" target="_blank" class="link-botao">Cadastrar Produto</a>
     </div>
+    
     <div class="search-container">
       <i class="fas fa-search"></i>
       <input type="text" id="search-input" placeholder="Pesquisar vinis..." onkeyup="searchVinils()">
@@ -693,6 +797,16 @@
         <span class="cart-count" id="cart-count">0</span>
       </button>
     </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="scrollToSection('pop'); toggleMobileMenu()">Pop</button>
+    <button onclick="scrollToSection('classico'); toggleMobileMenu()">Clássico</button>
+    <button onclick="scrollToSection('mpb'); toggleMobileMenu()">MPB</button>
+    <button onclick="scrollToSection('sobre-nos'); toggleMobileMenu()">Sobre Nós</button>
+    <a href="https://stella067.github.io/Clenresss/" target="_blank" class="link-botao">Cadastrar Cliente</a>
+    <a href="https://stella067.github.io/tabelas-vinil/" target="_blank" class="link-botao">Cadastrar Produto</a>
   </div>
 
   <!-- Modal Login -->
@@ -897,6 +1011,12 @@
     const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const loginModal = document.getElementById('login-modal');
+    
+    // Mobile Menu
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('active');
+    }
 
     function abrirLogin() {
       loginModal.style.display = 'flex';
@@ -971,6 +1091,110 @@
 
     window.addEventListener('scroll', checkScroll);
     window.addEventListener('load', checkScroll);
+    
+    // Carrinho de compras
+    let cart = [];
+    
+    function addToCart(name, price, image) {
+      cart.push({name, price, image});
+      updateCartCount();
+      showCartNotification(name);
+    }
+    
+    function updateCartCount() {
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    
+    function showCartNotification(name) {
+      const notification = document.createElement('div');
+      notification.style.position = 'fixed';
+      notification.style.bottom = '20px';
+      notification.style.right = '20px';
+      notification.style.backgroundColor = 'var(--accent)';
+      notification.style.color = 'var(--dark)';
+      notification.style.padding = '10px 20px';
+      notification.style.borderRadius = '5px';
+      notification.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
+      notification.style.zIndex = '3000';
+      notification.style.animation = 'fadeInOut 3s ease';
+      notification.textContent = `${name} adicionado ao carrinho!`;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+    
+    function abrirCarrinho() {
+      const cartModal = document.getElementById('cart-modal');
+      cartModal.style.display = 'block';
+      renderCartItems();
+    }
+    
+    function fecharCarrinho() {
+      document.getElementById('cart-modal').style.display = 'none';
+    }
+    
+    function renderCartItems() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cartTotalContainer = document.getElementById('cart-total');
+      
+      if(cart.length === 0) {
+        cartItemsContainer.innerHTML = '<div class="empty-cart"><p>Seu carrinho está vazio</p></div>';
+        cartTotalContainer.textContent = 'Total: R$ 0,00';
+        return;
+      }
+      
+      cartItemsContainer.innerHTML = '';
+      
+      let total = 0;
+      
+      cart.forEach((item, index) => {
+        total += item.price;
+        
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item';
+        itemElement.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="cart-item-info">
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-price">R$ ${item.price.toFixed(2)}</div>
+            <button class="cart-item-remove" onclick="removeFromCart(${index})">Remover</button>
+          </div>
+        `;
+        
+        cartItemsContainer.appendChild(itemElement);
+      });
+      
+      cartTotalContainer.textContent = `Total: R$ ${total.toFixed(2)}`;
+    }
+    
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartCount();
+      renderCartItems();
+    }
+    
+    function finalizarCompra() {
+      if(cart.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+      }
+      
+      alert(`Compra finalizada! Total: R$ ${cart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}\nObrigado por comprar conosco!`);
+      cart = [];
+      updateCartCount();
+      fecharCarrinho();
+      renderCartItems();
+    }
+    
+    // Fechar carrinho ao clicar fora
+    document.getElementById('cart-modal').addEventListener('click', function(e) {
+      if(e.target === this) {
+        fecharCarrinho();
+      }
+    });
   </script>
 
 </body>
